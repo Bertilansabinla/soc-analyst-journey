@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 1 — SOC Analyst Journey | Bertila Nsabinla</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Georgia, serif; background: #f9f9f9; color: #1a1a1a; line-height: 1.8; }
+.container { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+.header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); color: white; padding: 48px 32px; border-radius: 12px; margin-bottom: 48px; }
+.header h1 { font-size: 1.9rem; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
+.meta { font-size: 0.9rem; opacity: 0.8; margin-bottom: 12px; }
+.tagline { font-style: italic; opacity: 0.85; margin-bottom: 20px; font-size: 1rem; }
+.badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; }
+.stats-row { display: flex; gap: 20px; margin-top: 24px; flex-wrap: wrap; }
+.stat { background: rgba(255,255,255,0.1); padding: 12px 20px; border-radius: 8px; text-align: center; }
+.stat .num { font-size: 1.6rem; font-weight: 700; color: #4ade80; }
+.stat .lbl { font-size: 0.75rem; opacity: 0.8; margin-top: 2px; }
+h2 { font-size: 1.4rem; color: #0f2027; border-left: 4px solid #2c5364; padding-left: 14px; margin: 48px 0 16px; }
+h3 { font-size: 1.1rem; color: #203a43; margin: 24px 0 10px; }
+p { margin-bottom: 16px; font-size: 1.05rem; }
+.lesson { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+.win { background: #f0fdf4; border-left: 4px solid #22c55e; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+.error { background: #fef2f2; border-left: 4px solid #ef4444; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+.info { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+pre { background: #1e293b; color: #e2e8f0; padding: 20px; border-radius: 8px; overflow-x: auto; margin: 16px 0; font-size: 0.88rem; line-height: 1.6; white-space: pre-wrap; }
+code { font-family: monospace; background: #e2e8f0; color: #1e293b; padding: 2px 6px; border-radius: 4px; font-size: 0.9rem; }
+.answer { display: inline-block; background: #dcfce7; border: 2px solid #22c55e; color: #15803d; padding: 8px 20px; border-radius: 8px; font-weight: bold; margin: 8px 0 16px; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.95rem; }
+th { background: #0f2027; color: white; padding: 10px 14px; text-align: left; }
+td { padding: 10px 14px; border-bottom: 1px solid #eee; }
+tr:nth-child(even) td { background: #f9f9f9; }
+.footer { margin-top: 64px; padding: 32px; background: #0f2027; color: white; border-radius: 12px; text-align: center; }
+.footer a { color: #4ade80; }
+hr { border: none; border-top: 2px solid #e5e7eb; margin: 40px 0; }
+.part-label { display: inline-block; background: #2c5364; color: white; padding: 3px 12px; border-radius: 4px; font-size: 0.8rem; font-family: monospace; margin-bottom: 8px; }
+blockquote { border-left: 4px solid #2c5364; padding: 12px 20px; background: #f0f4f8; margin: 20px 0; font-style: italic; border-radius: 0 8px 8px 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="meta">June 24, 2026 · SOC Analyst Journey · Day 1 of 35</div>
+  <h1>From Zero to SIEM: How I Spent 8 Hours Fighting My Own Laptop to Build a Cybersecurity Lab — And What I Found Inside</h1>
+  <div class="tagline">"ISC2 CC certified. No prior hands-on experience. No budget. Just a MacBook Air M1, three virtual machines, and a lot of error messages."</div>
+  <div class="badges">
+    <span class="badge">🛡️ ISC2 CC Certified</span>
+    <span class="badge">🔍 Splunk SPL</span>
+    <span class="badge">🖥️ Apple Silicon M1</span>
+    <span class="badge">🏠 Home Lab Build</span>
+    <span class="badge">🚨 SSH Brute Force Investigation</span>
+  </div>
+  <div class="stats-row">
+    <div class="stat"><div class="num">8+</div><div class="lbl">Hours</div></div>
+    <div class="stat"><div class="num">181</div><div class="lbl">Attacker IPs Found</div></div>
+    <div class="stat"><div class="num">218</div><div class="lbl">Top Attacker Attempts</div></div>
+    <div class="stat"><div class="num">1</div><div class="lbl">Incident Report Written</div></div>
+  </div>
+</div>
+
+<h2>Why I'm Documenting This</h2>
+<p>I recently earned my ISC2 Certified in Cybersecurity (CC) certification. That was the theory. Now comes the harder part — the hands-on skills that actually get you hired.</p>
+<p>I want to be job-ready for entry-level SOC Analyst roles by the end of July 2026. That's five weeks. The job descriptions I'm targeting ask for experience with SIEM platforms like Splunk and QRadar, EDR tools like CrowdStrike Falcon and SentinelOne, and NDR/NGFW tools like Zeek, Palo Alto, and Corelight. None of these are things you can learn by reading. You have to touch them.</p>
+<p>So I built a home lab. And on Day 1, everything went wrong in the most educational way possible.</p>
+<p>This article is for anyone learning cybersecurity on consumer hardware, with no budget, figuring things out as they go. I'm writing it for recruiters who want to see not just what I know, but how I think when things break. And I'm writing it for my future self, so I never forget how hard the beginning was.</p>
+
+<hr>
+
+<h2>My Setup Going In</h2>
+<table>
+  <tr><th>Component</th><th>Details</th></tr>
+  <tr><td>Hardware</td><td>MacBook Air M1, 2020 — 8GB RAM, 245GB storage</td></tr>
+  <tr><td>Hypervisor</td><td>VMware Fusion</td></tr>
+  <tr><td>VM 1</td><td>Kali Linux ARM (shows as "Debian 12" in VMware — this is normal)</td></tr>
+  <tr><td>VM 2</td><td>Ubuntu Server 24.04 ARM (XFCE GUI installed)</td></tr>
+  <tr><td>VM 3</td><td>Windows 11 ARM (for Active Directory learning)</td></tr>
+</table>
+
+<p><strong>Goal for Day 1:</strong> Install Splunk SIEM on Ubuntu Server, load sample security data, run first SPL queries.</p>
+<p><strong>What actually happened:</strong> Disk space failures, ARM architecture incompatibilities, Docker failures, DNS issues, copy-paste problems, and a swap partition blocking disk expansion. And I still made it to Splunk by end of day.</p>
+
+<hr>
+
+<div class="part-label">PART 1</div>
+<h2>Before I Could Even Start — Everything Was Full</h2>
+<p>First task: update Kali Linux. Standard practice before starting any new work. Ran <code>sudo apt upgrade</code> and immediately hit:</p>
+
+<pre>Warning: More space needed than available: 1,152 MB > 330 MB, installation may fail
+Error: You don't have enough free space in /var/cache/apt/archives/</pre>
+
+<p>My Kali VM had 29GB of total disk space and was sitting at 98% full with only 653MB available. Before I'd even started.</p>
+<p>I tried to clean up. <code>sudo apt clean</code> helped a little. <code>sudo apt autoremove --purge</code> found nothing. Tried clearing journal logs:</p>
+
+<pre>sudo journalctl --vacuum-size=100m   # WRONG — lowercase m fails silently
+sudo journalctl --vacuum-size=100M   # CORRECT — uppercase M required</pre>
+
+<div class="lesson"><strong>🔑 Small detail, real cost:</strong> On Linux, case matters in command flags. Lowercase <code>m</code> and uppercase <code>M</code> mean different things. When you're new, small details like this cost you time.</div>
+
+<p>Running <code>sudo fdisk -l /dev/nvme0n1</code> revealed why disk expansion was blocked:</p>
+
+<pre>Device            Start      End  Sectors  Size Type
+/dev/nvme0n1p3  2035712 63633407 61597696 29.4G Linux filesystem  ← Kali lives here
+/dev/nvme0n1p4 63633408 67106815  3473408  1.7G Linux swap         ← This blocks expansion</pre>
+
+<p>Even though VMware had allocated more space, the swap partition (p4) was physically sitting between Kali's partition (p3) and the new free space. You can't grow p3 sideways when there's another partition in the way.</p>
+
+<div class="error"><strong>⚠️ Kali disk expansion: unresolved.</strong> Would require deleting the swap partition, expanding p3, recreating swap — a more involved operation noted for later.</div>
+
+<p><strong>Mac fix:</strong> Ran <code>tmutil deletelocalsnapshots /</code> to clear invisible APFS Time Machine snapshots macOS creates automatically. Freed ~8GB.</p>
+
+<hr>
+
+<div class="part-label">PART 2</div>
+<h2>What Is a SIEM and Why Does It Matter?</h2>
+
+<div class="info"><strong>SIEM = Security Information and Event Management.</strong> The central nervous system of a SOC. Every device generates log files all day — logins, file changes, network connections, process creations. Millions of lines daily across hundreds of machines. No human can read raw logs from hundreds of machines simultaneously. So companies send all logs to one central searchable system — the SIEM. Analysts query that data to find patterns indicating something bad is happening.</div>
+
+<p>Splunk is one of the most widely used commercial SIEMs. Learning it directly maps to what job descriptions ask for.</p>
+
+<p><strong>My plan:</strong></p>
+<p>1. Set up Ubuntu Server as the SIEM server → 2. Install Splunk → 3. Load sample security log data → 4. Practice SPL queries → 5. Connect Kali and Windows VMs to send real logs.</p>
+<p>Simple on paper.</p>
+
+<hr>
+
+<div class="part-label">PART 3</div>
+<h2>The Internet Problem</h2>
+
+<p>Needed to download Splunk onto the Ubuntu VM. The VM was on a host-only network (isolated from the internet — good security practice for a lab). Gave it temporary internet access and confirmed connectivity:</p>
+
+<pre>ip a          # IP was there — ens160 with 192.168.114.128
+ping google.com   # ping: google.com: Temporary failure in name resolution</pre>
+
+<p>The machine had a network connection but no DNS. DNS translates domain names (google.com) into IP addresses. Without it, you can connect to the network but can't find anything by name.</p>
+
+<p><strong>Fix:</strong></p>
+<pre>echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf</pre>
+
+<p>Manually added Google's DNS server (8.8.8.8) to the system's DNS configuration. Internet worked.</p>
+
+<hr>
+
+<div class="part-label">PART 4</div>
+<h2>The Architecture Problem — The Wall I Hit Repeatedly</h2>
+
+<div class="error"><strong>The ARM vs x86 problem:</strong><br>
+MacBook Air M1 = ARM processor. VMs on M1 Mac = also ARM (they have to be — the hardware is ARM). Splunk Enterprise for Linux = compiled for x86 (Intel/AMD) only. There is no ARM64 Linux version of Splunk. You simply cannot install the standard Linux Splunk package natively on an M1 Mac's VMs.</div>
+
+<p>I didn't know this going in. I found out through a series of failures.</p>
+
+<p><strong>Docker as the workaround:</strong> Docker lets you run containers. With QEMU emulation, you can theoretically run x86 containers on ARM hardware. Installed Docker, tried:</p>
+
+<pre>sudo docker run -d --platform=linux/amd64 -p 8000:8000   -e SPLUNK_START_ARGS='--accept-license'   -e SPLUNK_PASSWORD='splunk123!'   --name splunk-enterprise splunk/splunk:latest</pre>
+
+<p>Image downloaded — 1.35GB. Then failed with "no space left on device." The Docker image had filled Ubuntu's remaining space. Ubuntu was 100% full.</p>
+
+<hr>
+
+<div class="part-label">PART 5</div>
+<h2>Expanding Ubuntu's Disk — The First Real Win ✅</h2>
+
+<p>Unlike Kali, Ubuntu used <strong>LVM (Logical Volume Manager)</strong>. LVM is more flexible than standard partitioning — you can expand it while the system is running.</p>
+
+<pre>sudo vgdisplay
+# Output: Free PE / Size: 1873 / 7.32 GiB — unallocated space available to use</pre>
+
+<p>Had to type these commands manually — copy-paste between Mac and VM not working yet (more on that shortly):</p>
+
+<pre>sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
+sudo resize2fs /dev/ubuntu-vg/ubuntu-lv</pre>
+
+<div class="win"><strong>✅ Result:</strong> Ubuntu went from 9.8GB at 100% full → 17GB with 8.8GB free. First real win of the day.</div>
+
+<div class="lesson"><strong>🔑 Lesson:</strong> LVM is better than standard partitioning for lab environments. Ubuntu's LVM let me expand in two commands while running. Kali's standard partition layout required a more complex procedure because a swap partition was in the way. When setting up VMs for labs, use LVM.</div>
+
+<hr>
+
+<div class="part-label">PART 6</div>
+<h2>Docker Tries Again — And Keeps Failing</h2>
+
+<p>With space available, tried Splunk in Docker again. Downloaded fully but container kept exiting immediately.</p>
+
+<p><strong>Error 1:</strong> Splunk updated license terms. Old <code>--accept-license</code> flag wasn't enough. Required new <code>SPLUNK_GENERAL_TERMS</code> environment variable. Updated, deleted old container, tried again.</p>
+
+<p><strong>Error 2 — the real ARM emulation failure:</strong></p>
+
+<pre>sudo: effective uid is not 0, is /usr/bin/sudo on a file system
+with the 'nosuid' option set or an NFS file system without root privileges?</pre>
+
+<p>Splunk's Docker container uses Ansible internally to set itself up. Ansible uses <code>sudo</code>. When running x86 containers on ARM via QEMU emulation, the emulation layer doesn't properly handle kernel-level privilege operations that <code>sudo</code> relies on. Splunk's internal setup fails before it even starts.</p>
+
+<p>Tried <code>--privileged</code> flag → still failed. Tried <code>--user root</code> → still failed. Tried installing proper QEMU binfmt support → still failed.</p>
+
+<div class="error"><strong>Conclusion:</strong> Running Splunk Enterprise via Docker on ARM Ubuntu VM doesn't work due to how QEMU handles sudo privilege escalation in Splunk's Ansible provisioner. Dead end.</div>
+
+<hr>
+
+<div class="part-label">PART 7</div>
+<h2>The Copy-Paste Problem</h2>
+
+<p>Running parallel to all of this: couldn't copy and paste between my Mac and the Ubuntu VM terminal. The normal Linux terminal paste shortcut <code>Ctrl+Shift+V</code> didn't work. Right-clicking showed a greyed-out Paste option. VMware's Edit menu operated at the VMware level, not inside the terminal.</p>
+
+<p><strong>Solution: SSH</strong></p>
+<p>Instead of the VM's graphical terminal, connected from Mac Terminal directly to Ubuntu:</p>
+
+<pre>ssh administrator@172.16.23.135</pre>
+
+<div class="win"><strong>✅ Inside native Mac Terminal = full Mac copy-paste with Cmd+V. Problem solved permanently.</strong></div>
+
+<p>Setup required on Ubuntu first:</p>
+<pre>sudo apt install openssh-server -y
+sudo systemctl enable ssh
+sudo systemctl start ssh</pre>
+
+<div class="lesson"><strong>🔑 Lesson:</strong> SSH into your VMs from your host terminal immediately. Don't fight the VM's graphical terminal for copy-paste. It's faster, cleaner, and more realistic to how you'd actually administer a server in production.</div>
+
+<hr>
+
+<div class="part-label">PART 8</div>
+<h2>The Right Solution Was There All Along</h2>
+
+<p>After hours of Docker attempts, I finally searched differently and found the answer I should have found first:</p>
+
+<div class="win"><strong>✅ Splunk Enterprise has a native macOS ARM build.</strong><br><br>
+Go to splunk.com/download → click <strong>Mac OS tab</strong> (not Linux) → ARM — macOS — .dmg — 840.8 MB</div>
+
+<p>Downloaded the .dmg → double-clicked → installer opened → created admin credentials → clicked "Start and Show Splunk" → browser opened automatically.</p>
+
+<p><strong>Splunk Enterprise 10.4.0 running at localhost:8000. ✅</strong></p>
+
+<div class="lesson"><strong>🔑 The solution that worked: 4 clicks.</strong> We spent hours on workarounds. The native solution was one tab-click away on the same download page. Always check the obvious options before going deep on workarounds.</div>
+
+<hr>
+
+<div class="part-label">PART 9</div>
+<h2>The First Real SOC Investigation</h2>
+
+<p>With Splunk running, clicked "Add Data" and uploaded <code>secure.log</code> — a Linux mail server security log from Splunk's official tutorial dataset.</p>
+
+<p>Even the preview was alarming. Every single event was some variant of:</p>
+
+<pre>Failed password for invalid user [name] from [IP] port [number] ssh2</pre>
+
+<p>Someone had been hammering this mail server trying to get in via SSH, trying username after username. This is called a brute force attack.</p>
+
+<h3>Query 1 — Who was attacking and how many times?</h3>
+
+<pre>source="secure.log" "Failed password"
+| rex "from (?P&lt;src_ip&gt;\d+\.\d+\.\d+\.\d+)"
+| stats count by src_ip
+| sort -count</pre>
+
+<p><strong>Result:</strong> 181 different IP addresses had been trying to break in. Top attacker — <code>87.194.216.51</code> — made 218 failed login attempts. Classic automated brute force: a script cycling through common usernames (guest, postgres, apache, mongodb, root, games, mail).</p>
+
+<h3>Query 2 — Did any of them get in?</h3>
+<p>This is the question that actually matters. Failed attempts are noise. Successful logins are incidents.</p>
+
+<pre>source="secure.log" "Accepted password"
+| rex "for (?P&lt;user&gt;\w+) from (?P&lt;src_ip&gt;\d+\.\d+\.\d+\.\d+)"
+| stats count by user src_ip
+| sort -count</pre>
+
+<p><strong>Result:</strong> 3 users with successful logins — djohnson, nsharpe, myuan. All from internal IPs: <code>10.3.10.46</code>, <code>10.2.10.163</code>, <code>10.1.10.172</code>. Addresses starting with 10.x are private network addresses — inside the organization's network, not from the internet. These are legitimate employees.</p>
+
+<div class="win"><strong>The external attackers — every single one of them — failed.</strong></div>
+
+<h3>Incident Report — Day 1</h3>
+<blockquote>
+Detected SSH brute force attack against mailsv1 from 181 unique external IP addresses. Top attacker 87.194.216.51 made 218 failed authentication attempts. No external IP address achieved successful authentication. Internal users djohnson, nsharpe, and myuan show normal login activity from internal network addresses (10.x.x.x range). No escalation required. Recommend blocking top attacker IPs at perimeter firewall as precautionary measure.
+</blockquote>
+
+<div class="lesson"><strong>That is a real SOC investigation.</strong> Detect the attack → quantify the scope → determine if it succeeded → write the summary. I did that on Day 1.</div>
+
+<hr>
+
+<h2>Key Lessons from Day 1</h2>
+
+<table>
+  <tr><th>Lesson</th><th>Detail</th></tr>
+  <tr><td><strong>ARM is a real constraint</strong></td><td>Most enterprise security tools are x86 only. Check host OS compatibility before assuming you need a VM.</td></tr>
+  <tr><td><strong>Use LVM for lab VMs</strong></td><td>Expandable on the fly. Standard partitions with swap block expansion.</td></tr>
+  <tr><td><strong>SSH immediately</strong></td><td>Set up SSH from your host terminal on day one. Faster, cleaner, more realistic.</td></tr>
+  <tr><td><strong>Ask the right questions</strong></td><td>"Who is attacking?" and "Did they succeed?" The syntax is lookupable. The questions are the skill.</td></tr>
+  <tr><td><strong>Error messages are a curriculum</strong></td><td>The terminal is honest. It tells you exactly what went wrong when you read it carefully.</td></tr>
+  <tr><td><strong>Check obvious solutions first</strong></td><td>Native ARM .dmg was one tab-click away while we spent hours on Docker workarounds.</td></tr>
+</table>
+
+<hr>
+
+<h2>Lab Status After Day 1</h2>
+
+<table>
+  <tr><th>Component</th><th>Status</th></tr>
+  <tr><td>Splunk Enterprise 10.4.0</td><td>✅ Running natively on macOS at localhost:8000</td></tr>
+  <tr><td>SSH Mac → Ubuntu</td><td>✅ Configured (administrator@172.16.23.135)</td></tr>
+  <tr><td>Ubuntu disk expanded</td><td>✅ 10GB → 17GB via LVM</td></tr>
+  <tr><td>secure.log loaded into Splunk</td><td>✅ First dataset ingested</td></tr>
+  <tr><td>First SPL queries written</td><td>✅ Brute force investigation complete</td></tr>
+  <tr><td>Kali disk expansion</td><td>⚠️ Blocked by swap partition — unresolved</td></tr>
+  <tr><td>Ubuntu pending updates (180)</td><td>⚠️ Pending</td></tr>
+</table>
+
+<hr>
+
+<h2>5-Week Plan</h2>
+
+<table>
+  <tr><th>Week</th><th>Focus</th><th>Status</th></tr>
+  <tr><td>Week 1 (Jun 24–30)</td><td>Splunk + SPL Fundamentals</td><td>🟡 In Progress</td></tr>
+  <tr><td>Week 2 (Jul 1–7)</td><td>Google SecOps + LetsDefend</td><td>⬜ Upcoming</td></tr>
+  <tr><td>Week 3 (Jul 8–14)</td><td>Wazuh EDR</td><td>⬜ Upcoming</td></tr>
+  <tr><td>Week 4 (Jul 15–21)</td><td>Zeek + Wireshark + pfSense</td><td>⬜ Upcoming</td></tr>
+  <tr><td>Week 5 (Jul 22–31)</td><td>Portfolio + Resume + Apply</td><td>⬜ Upcoming</td></tr>
+</table>
+
+<div class="footer">
+  <p style="font-size:1.1rem;font-weight:bold;margin-bottom:8px;">Bertila Nsabinla · SOC Analyst Journey</p>
+  <p style="opacity:0.8;margin-bottom:16px;">ISC2 CC · Targeting SOC Level 1 by July 2026</p>
+  <p><a href="https://linkedin.com/in/bertilansabinla">LinkedIn</a> &nbsp;·&nbsp; <a href="https://github.com/bertilansabinla/soc-analyst-journey">GitHub</a> &nbsp;·&nbsp; <a href="https://zenvivas.com">Zenvivas.com</a></p>
+  <p style="margin-top:16px;font-size:0.8rem;opacity:0.6;">#Cybersecurity #SOCAnalyst #Splunk #SIEM #HomeLab #LearningInPublic #ISC2 #BlueTeam #CareerChange #AppleSilicon</p>
+</div>
+
+</div>
+</body>
+</html>
